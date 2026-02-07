@@ -109,3 +109,34 @@ button {
     font-weight: bold;
     pointer-events: none;
 }
+
+.clue-item {
+    padding: 4px;
+    cursor: pointer;
+}
+
+.clue-item:hover {
+    background: #eee;
+}
+
+#startScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #f4f6f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.instructions {
+    width: 400px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+header {
+    font-weight: bold;
+    padding: 10px;
+}
