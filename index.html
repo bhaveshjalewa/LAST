@@ -3,33 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Global Money Week Crossword</title>
+<title>Verba Arena</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Global Money Week Crossword</h1>
+<!-- START SCREEN -->
+<div id="startScreen">
+    <h1>Verba Arena</h1>
 
-<div class="container">
-
-    <div id="grid"></div>
-
-    <div class="clues">
-        <h2>Across</h2>
-        <div id="acrossClues"></div>
-
-        <h2>Down</h2>
-        <div id="downClues"></div>
+    <div class="instructions">
+        <p><b>Instructions:</b></p>
+        <ul>
+            <li>Fill the crossword using finance concepts.</li>
+            <li>Click a cell to activate a word.</li>
+            <li>Click again to toggle Across/Down.</li>
+            <li>Typing moves forward automatically.</li>
+            <li>Press Enter to move forward.</li>
+            <li>Use Undo if needed.</li>
+            <li>Submit when completed.</li>
+            <li>Completion code appears after full correctness.</li>
+        </ul>
     </div>
 
+    <button id="startBtn">START QUIZ</button>
 </div>
 
-<div class="controls">
-    <button id="submitBtn">Submit</button>
-    <button id="clearBtn">Clear</button>
-</div>
+<!-- GAME CONTAINER -->
+<div id="gameContainer" style="display:none;">
 
-<div id="message"></div>
+    <header>
+        <div>Time: <span id="timer">00:00</span></div>
+    </header>
+
+    <div class="container">
+
+        <div id="grid"></div>
+
+        <div class="clues">
+            <h3>Across</h3>
+            <div id="acrossClues"></div>
+
+            <h3>Down</h3>
+            <div id="downClues"></div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button id="undoBtn">Undo</button>
+        <button id="submitBtn">Submit</button>
+    </div>
+
+    <div id="message"></div>
+
+</div>
 
 <script src="script.js"></script>
 </body>
