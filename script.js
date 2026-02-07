@@ -26,12 +26,12 @@ function buildGrid() {
 
     grid.innerHTML = "";
 
-    for (let r = 0; r < 18; r++) {
+    let number = 1;
 
+    for (let r = 0; r < 18; r++) {
         for (let c = 0; c < 18; c++) {
 
             const char = puzzle[r][c];
-
             const wrapper = document.createElement("div");
             wrapper.className = "grid-cell";
 
@@ -42,10 +42,33 @@ function buildGrid() {
                 wrapper.classList.add("black-cell");
             }
             else {
+
+                // Check if start of Across
+                const startAcross =
+                    (c === 0 || puzzle[r][c - 1] === "0" || puzzle[r][c - 1] === "#") &&
+                    (c < 17 && puzzle[r][c + 1] !== "0" && puzzle[r][c + 1] !== "#");
+
+                // Check if start of Down
+                const startDown =
+                    (r === 0 || puzzle[r - 1][c] === "0" || puzzle[r - 1][c] === "#") &&
+                    (r < 17 && puzzle[r + 1][c] !== "0" && puzzle[r + 1][c] !== "#");
+
+                if (startAcross || startDown) {
+                    const num = document.createElement("div");
+                    num.className = "cell-number";
+                    num.textContent = number++;
+                    wrapper.appendChild(num);
+                }
+
                 const input = document.createElement("input");
                 input.className = "cell";
                 input.maxLength = 1;
                 input.dataset.correct = char;
+
+                input.addEventListener("input", function () {
+                    this.value = this.value.toUpperCase();
+                });
+
                 wrapper.appendChild(input);
             }
 
@@ -55,7 +78,6 @@ function buildGrid() {
 
     console.log("Total cells:", grid.children.length);
 }
-
 
 function checkAnswers() {
     const inputs = document.querySelectorAll(".cell");
