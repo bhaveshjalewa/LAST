@@ -23,7 +23,6 @@ const grid = document.getElementById("grid");
 const message = document.getElementById("message");
 
 function buildGrid() {
-console.log("Total cells:", grid.children.length);
 
     grid.innerHTML = "";
 
@@ -58,6 +57,8 @@ console.log("Total cells:", grid.children.length);
             grid.appendChild(cellWrapper);
         });
     });
+    
+    console.log("Total cells:", grid.children.length);
 }
 
 
