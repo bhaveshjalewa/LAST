@@ -21,9 +21,11 @@ h1 {
     display: grid;
     grid-template-columns: repeat(18, 35px);
     grid-template-rows: repeat(18, 35px);
+    grid-auto-flow: row;
     width: 630px;
     height: 630px;
 }
+
 
 /* Every position is now same wrapper */
 .grid-cell {
