@@ -28,7 +28,6 @@ function updateTimer() {
         (s < 10 ? "0" + s : s);
 }
 
-
 /*************************
  PUZZLE DATA
 *************************/
@@ -93,7 +92,6 @@ const downCluesText = [
 const COMPLETION_CODE =
 "X9F7LQ2ZP8M4R1T6V3W0K5Y8C2D7N4B1S6H9E0J3G2U5A";
 
-
 /*************************
  GRID + WORD ENGINE
 *************************/
@@ -105,14 +103,13 @@ const downDiv = document.getElementById("downClues");
 let words = [];
 let activeWord = null;
 let currentDirection = "across";
-let historyStack = [];
 
 function buildGrid() {
 
     grid.innerHTML = "";
-    words = [];
     acrossDiv.innerHTML = "";
     downDiv.innerHTML = "";
+    words = [];
 
     let number = 1;
     let acrossIndex = 0;
@@ -195,9 +192,12 @@ function buildGrid() {
 
 function collectWord(r, c, dir) {
     const cells = [];
-    while (r < 18 && c < 18 &&
+    while (
+        r < 18 &&
+        c < 18 &&
         puzzle[r][c] !== "0" &&
-        puzzle[r][c] !== "#") {
+        puzzle[r][c] !== "#"
+    ) {
         cells.push({ r, c });
         if (dir === "across") c++;
         else r++;
@@ -214,12 +214,12 @@ function renderClue(word, container) {
     container.appendChild(div);
 }
 
-
 /*************************
  HIGHLIGHT
 *************************/
 
 function activateCell(r, c) {
+
     const matchingWords = words.filter(w =>
         w.cells.some(cell => cell.r === r && cell.c === c)
     );
@@ -237,8 +237,10 @@ function activateCell(r, c) {
 }
 
 function highlightWord(word) {
+
     document.querySelectorAll(".cell")
         .forEach(c => c.style.background = "white");
+
     document.querySelectorAll(".clue-item")
         .forEach(c => c.style.background = "transparent");
 
@@ -261,107 +263,71 @@ function getCell(r, c) {
     );
 }
 
-
-/*************************
- AUTO MOVE
-*************************/
-
 function autoMove(e) {
     e.target.value = e.target.value.toUpperCase();
-    if (!activeWord) return;
-
-    const index = activeWord.cells.findIndex(cell =>
-        cell.r == e.target.dataset.row &&
-        cell.c == e.target.dataset.col
-    );
-
-    if (index < activeWord.cells.length - 1) {
-        const next = activeWord.cells[index + 1];
-        getCell(next.r, next.c).focus();
-    }
 }
-
-
-/*************************
- UNDO
-*************************/
-
-document.getElementById("undoBtn")
-    .addEventListener("click", function () {
-
-        const last = historyStack.pop();
-        if (!last) return;
-
-        const cell = getCell(last.row, last.col);
-        if (cell) {
-            cell.value = last.prev;
-            cell.focus();
-        }
-    });
-
 
 /*************************
  CLEAR
 *************************/
 
 document.getElementById("clearBtn")
-    .addEventListener("click", function () {
-
-        document.querySelectorAll(".cell")
-            .forEach(cell => cell.value = "");
-
-        message.textContent = "";
-    });
-
+.addEventListener("click", function () {
+    document.querySelectorAll(".cell")
+        .forEach(cell => cell.value = "");
+    message.textContent = "";
+});
 
 /*************************
  SUBMIT
 *************************/
 
 document.getElementById("submitBtn")
-    .addEventListener("click", function () {
+.addEventListener("click", function () {
 
-        let correct = true;
+    let correct = true;
 
-        document.querySelectorAll(".cell")
-            .forEach(input => {
-                if (input.value !== input.dataset.correct) {
-                    correct = false;
-                }
-            });
+    document.querySelectorAll(".cell")
+        .forEach(input => {
+            if (input.value !== input.dataset.correct) {
+                correct = false;
+            }
+        });
 
-       if(correct){
+    if (correct) {
 
-    clearInterval(timerInterval);
+        clearInterval(timerInterval);
 
-    message.style.color = "green";
-    message.innerHTML =
-        "<b>Completed Successfully!</b><br><br>" +
-        "Completion Code:<br><br>" +
-        "<div style='word-break:break-all'>" +
-        COMPLETION_CODE +
-        "</div>";
+        message.style.color = "green";
+        message.innerHTML =
+            "<b>Completed Successfully!</b><br><br>" +
+            "Completion Code:<br><br>" +
+            "<div style='word-break:break-all'>" +
+            COMPLETION_CODE +
+            "</div>";
 
-    lockPuzzle();  // 🔒 LOCK GAME HERE
-}
+        lockPuzzle();
 
-        }
-        else {
-            message.style.color = "red";
-            message.textContent =
-                "Some answers are incorrect.";
-        }
-    });
+    } else {
+
+        message.style.color = "red";
+        message.textContent =
+            "Some answers are incorrect.";
+    }
+});
+
+/*************************
+ LOCK PUZZLE
+*************************/
+
 function lockPuzzle() {
 
-    // Disable all input cells
-    document.querySelectorAll(".cell").forEach(cell => {
-        cell.disabled = true;
-        cell.style.background = "#e6f4ea";  // soft green lock effect
-        cell.style.cursor = "default";
-    });
+    document.querySelectorAll(".cell")
+        .forEach(cell => {
+            cell.disabled = true;
+            cell.style.background = "#e6f4ea";
+        });
 
-    // Disable buttons
     document.getElementById("undoBtn").disabled = true;
     document.getElementById("clearBtn").disabled = true;
     document.getElementById("submitBtn").disabled = true;
