@@ -2,61 +2,68 @@ body {
     font-family: Arial, sans-serif;
     background: #f4f6f9;
     text-align: center;
+    margin: 0;
 }
 
 h1 {
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
     gap: 40px;
+    align-items: flex-start;
 }
 
+/* GRID */
 #grid {
     display: grid;
     grid-template-columns: repeat(18, 35px);
     grid-template-rows: repeat(18, 35px);
+    gap: 0;
 }
 
-/* PLAYABLE CELLS */
-.cell {
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    font-size: 18px;
-    text-transform: uppercase;
-    border: 1px solid black;
-    box-sizing: border-box;
-}
-
-/* ZERO CELLS (CAMOUFLAGE) */
-.zero-cell {
-    width: 35px;
-    height: 35px;
-    background: transparent;
-    border: none;
-    box-sizing: border-box;
-}
-
-/* BLACK CELL */
+/* All cell types share same size */
+.cell,
+.zero-cell,
 .black-cell {
     width: 35px;
     height: 35px;
-    background: black;
-    border: 1px solid black;
     box-sizing: border-box;
 }
 
-.clues {
-    text-align: left;
-    width: 400px;
-    height: 600px;
-    overflow-y: auto;
+/* Playable cell */
+.cell {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
 }
 
+/* Invisible cells (0) */
+.zero-cell {
+    background: transparent;
+    border: none;
+}
+
+/* Black cell */
+.black-cell {
+    background: black;
+    border: 1px solid black;
+}
+
+/* Clues */
+.clues {
+    width: 400px;
+    height: 630px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+/* Buttons */
 .controls {
     margin-top: 20px;
 }
