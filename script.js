@@ -24,26 +24,21 @@ const message = document.getElementById("message");
 
 function buildGrid() {
 
-    grid.innerHTML = ""; // CRITICAL – prevents stacking
+    grid.innerHTML = "";
 
     puzzle.forEach((row, r) => {
 
-        if (row.length !== 18) {
-            console.error("Row length error at row", r + 1);
-        }
-
         row.split("").forEach((char, c) => {
 
+            const cellWrapper = document.createElement("div");
+            cellWrapper.className = "grid-cell";
+
             if (char === "0") {
-                const div = document.createElement("div");
-                div.className = "zero-cell";
-                grid.appendChild(div);
+                cellWrapper.classList.add("zero-cell");
             }
 
             else if (char === "#") {
-                const div = document.createElement("div");
-                div.className = "black-cell";
-                grid.appendChild(div);
+                cellWrapper.classList.add("black-cell");
             }
 
             else {
@@ -51,18 +46,19 @@ function buildGrid() {
                 input.maxLength = 1;
                 input.className = "cell";
                 input.dataset.correct = char;
-                input.dataset.row = r;
-                input.dataset.col = c;
 
                 input.addEventListener("input", function () {
                     this.value = this.value.toUpperCase();
                 });
 
-                grid.appendChild(input);
+                cellWrapper.appendChild(input);
             }
+
+            grid.appendChild(cellWrapper);
         });
     });
 }
+
 
 function checkAnswers() {
     const inputs = document.querySelectorAll(".cell");
