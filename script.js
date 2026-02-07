@@ -23,7 +23,15 @@ const grid = document.getElementById("grid");
 const message = document.getElementById("message");
 
 function buildGrid() {
+
+    grid.innerHTML = ""; // CRITICAL – prevents stacking
+
     puzzle.forEach((row, r) => {
+
+        if (row.length !== 18) {
+            console.error("Row length error at row", r + 1);
+        }
+
         row.split("").forEach((char, c) => {
 
             if (char === "0") {
@@ -31,21 +39,23 @@ function buildGrid() {
                 div.className = "zero-cell";
                 grid.appendChild(div);
             }
+
             else if (char === "#") {
                 const div = document.createElement("div");
                 div.className = "black-cell";
                 grid.appendChild(div);
             }
+
             else {
                 const input = document.createElement("input");
                 input.maxLength = 1;
                 input.className = "cell";
+                input.dataset.correct = char;
                 input.dataset.row = r;
                 input.dataset.col = c;
-                input.dataset.correct = char;
 
-                input.addEventListener("input", (e) => {
-                    e.target.value = e.target.value.toUpperCase();
+                input.addEventListener("input", function () {
+                    this.value = this.value.toUpperCase();
                 });
 
                 grid.appendChild(input);
@@ -67,7 +77,7 @@ function checkAnswers() {
     return correct;
 }
 
-document.getElementById("submitBtn").onclick = () => {
+document.getElementById("submitBtn").addEventListener("click", function () {
     if (checkAnswers()) {
         message.style.color = "green";
         message.textContent = "Congratulations! Crossword Completed Successfully.";
@@ -75,13 +85,13 @@ document.getElementById("submitBtn").onclick = () => {
         message.style.color = "red";
         message.textContent = "Some answers are incorrect. Please review.";
     }
-};
+});
 
-document.getElementById("clearBtn").onclick = () => {
+document.getElementById("clearBtn").addEventListener("click", function () {
     document.querySelectorAll(".cell").forEach(cell => {
         cell.value = "";
     });
     message.textContent = "";
-};
+});
 
 buildGrid();
