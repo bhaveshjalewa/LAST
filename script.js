@@ -330,15 +330,21 @@ document.getElementById("submitBtn")
                 }
             });
 
-        if (correct) {
-            clearInterval(timerInterval);
-            message.style.color = "green";
-            message.innerHTML =
-                "<b>Completed Successfully!</b><br><br>" +
-                "Completion Code:<br><br>" +
-                "<div style='word-break:break-all'>" +
-                COMPLETION_CODE +
-                "</div>";
+       if(correct){
+
+    clearInterval(timerInterval);
+
+    message.style.color = "green";
+    message.innerHTML =
+        "<b>Completed Successfully!</b><br><br>" +
+        "Completion Code:<br><br>" +
+        "<div style='word-break:break-all'>" +
+        COMPLETION_CODE +
+        "</div>";
+
+    lockPuzzle();  // 🔒 LOCK GAME HERE
+}
+
         }
         else {
             message.style.color = "red";
@@ -346,3 +352,17 @@ document.getElementById("submitBtn")
                 "Some answers are incorrect.";
         }
     });
+function lockPuzzle() {
+
+    // Disable all input cells
+    document.querySelectorAll(".cell").forEach(cell => {
+        cell.disabled = true;
+        cell.style.background = "#e6f4ea";  // soft green lock effect
+        cell.style.cursor = "default";
+    });
+
+    // Disable buttons
+    document.getElementById("undoBtn").disabled = true;
+    document.getElementById("clearBtn").disabled = true;
+    document.getElementById("submitBtn").disabled = true;
+}
