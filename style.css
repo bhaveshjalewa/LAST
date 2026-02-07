@@ -17,27 +17,37 @@ h1 {
 
 #grid {
     display: grid;
-    grid-template-columns: repeat(18, 32px);
-    grid-template-rows: repeat(18, 32px);
+    grid-template-columns: repeat(18, 35px);
+    grid-template-rows: repeat(18, 35px);
 }
 
+/* PLAYABLE CELLS */
 .cell {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
     text-transform: uppercase;
     border: 1px solid black;
+    box-sizing: border-box;
 }
 
+/* ZERO CELLS (CAMOUFLAGE) */
 .zero-cell {
+    width: 35px;
+    height: 35px;
     background: transparent;
     border: none;
+    box-sizing: border-box;
 }
 
+/* BLACK CELL */
 .black-cell {
+    width: 35px;
+    height: 35px;
     background: black;
     border: 1px solid black;
+    box-sizing: border-box;
 }
 
 .clues {
