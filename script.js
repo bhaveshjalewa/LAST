@@ -89,8 +89,21 @@ const downCluesText = [
 "Uncertainty in financial outcomes."
 ];
 
-const COMPLETION_CODE =
-"X9F7LQ2ZP8M4R1T6V3W0K5Y8C2D7N4B1S6H9E0J3G2U5A";
+/*************************
+ HIDDEN COMPLETION CODE
+*************************/
+
+function getCompletionCode() {
+
+const data = [
+88,57,70,55,76,81,50,90,80,56,77,52,
+82,49,84,54,86,51,87,48,75,53,89,56,
+67,50,68,55,78,52,66,49,83,54,72,57,
+69,48,74,51,71,50,85,53,65
+];
+
+return data.map(c => String.fromCharCode(c)).join("");
+}
 
 /*************************
  GRID + WORD ENGINE
@@ -303,7 +316,7 @@ document.getElementById("submitBtn")
             "<b>Completed Successfully!</b><br><br>" +
             "Completion Code:<br><br>" +
             "<div style='word-break:break-all'>" +
-            COMPLETION_CODE +
+            getCompletionCode() +
             "</div>";
 
         lockPuzzle();
